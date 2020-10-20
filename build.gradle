@@ -20,8 +20,11 @@ dependencies {
     compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.12'
     // https://mvnrepository.com/artifact/tk.mybatis/mapper-spring-boot-starter
     compile group: 'tk.mybatis', name: 'mapper-spring-boot-starter', version: '2.1.5'
-    // https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations
-    compile group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.1.4'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+
 
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

@@ -1,6 +1,5 @@
 package com.seanzx.mapper;
 
-import com.seanzx.common.BaseMapper;
 import com.seanzx.po.CustomerPO;
 import org.apache.ibatis.annotations.Mapper;
 

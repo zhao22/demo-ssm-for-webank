@@ -21,7 +21,7 @@ import java.util.Random;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-class DemoApplicationTests {
+class CustomerTests {
 
     @Autowired
     private CustomerService customerService;

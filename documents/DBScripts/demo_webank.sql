@@ -29,7 +29,7 @@ CREATE TABLE `t_customer`  (
   `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机',
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '住址',
-  `data_status` bit(1) NULL DEFAULT NULL COMMENT '有效标识(0: 无效, 1: 有效)',
+  `data_status` bit(1) NOT NULL DEFAULT 1 COMMENT '有效标识(0: 无效, 1: 有效)',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 

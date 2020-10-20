@@ -1,37 +1,37 @@
 package com.seanzx.vo;
 
 
+import com.seanzx.common.Constants;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 客户信息VO
  * @author zhaoxin
  * @date 2020/10/19
  */
+@ApiModel(value="客户信息模型")
 public class CustomerVO {
 
+    @ApiModelProperty(name = "客户id", notes = "自增主键，新增和修改时不传")
     private Integer id;
-    /**
-     * 客户名称
-     */
+
+    @ApiModelProperty(name = "客户名称")
     private String customerName;
-    /**
-     * 性别 (0: 女 1: 男)
-     */
+
+    @ApiModelProperty(name = "性别", notes = "0: 女 1: 男")
     private Integer gender;
-    /**
-     * 年龄
-     */
+
+    @ApiModelProperty(name = "年龄", notes = "0 - 130 的数字")
     private Integer age;
-    /**
-     * 手机
-     */
+
+    @ApiModelProperty(name = "手机号", example = "13333333333", notes = "传值时需符合正则[" + Constants.Regex.MOBILE + "]")
     private String mobile;
-    /**
-     * 邮箱
-     */
+
+    @ApiModelProperty(name = "邮箱", example = "seam622@163.com", notes = "传值时需符合正则[" + Constants.Regex.EMAIL + "]")
     private String email;
-    /**
-     * 住址
-     */
+
+    @ApiModelProperty(name = "住址", notes = "长度不超过 100 位")
     private String address;
 
     public Integer getId() {

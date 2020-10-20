@@ -4,44 +4,54 @@ import com.seanzx.common.Page;
 import com.seanzx.common.Response;
 import com.seanzx.service.CustomerService;
 import com.seanzx.vo.CustomerVO;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 客户信息控制器
  * @author zhaoxin
  * @date 2020/10/19
  */
+@Api
 @RestController
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping("/customer")
-    public Response<Integer> addCustomer(@RequestBody CustomerVO customerVO) {
+    @ApiOperation(value = "新增客户")
+    @PostMapping
+    public Response<Integer> addCustomer(@ApiParam("新增客户信息") @RequestBody CustomerVO customerVO) {
         return customerService.addCustomer(customerVO);
     }
 
-    @GetMapping("/customer/{id}")
-    public Response<CustomerVO> findCustomer(@PathVariable Integer id) {
+    @ApiOperation(value = "根据客户id查询客户")
+    @GetMapping("/{id}")
+    public Response<CustomerVO> findCustomer(@ApiParam(value = "客户id")@PathVariable Integer id) {
         return customerService.findCustomer(id);
     }
 
-    @GetMapping("/customer/page/{pageNum}")
-    public Response<Page<CustomerVO>> findCustomerByPage(@PathVariable Integer pageNum,
+    @ApiOperation(value = "分页查询客户")
+    @GetMapping("/page/{pageNum}")
+    public Response<Page<CustomerVO>> findCustomerByPage(@ApiParam(value = "页码") @PathVariable Integer pageNum,
+                                                         @ApiParam(value = "分页大小")
                                                          @RequestParam(required = false, defaultValue = "10") Integer size) {
         return customerService.findCustomerByPage(pageNum, size);
     }
 
 
-    @PutMapping("/customer/{id}")
-    public Response updateCustomerInfo(@PathVariable Integer id, @RequestBody CustomerVO customerVO) {
+    @ApiOperation(value = "修改客户信息")
+    @PutMapping("/{id}")
+    public Response updateCustomerInfo(@ApiParam(value = "客户id") @PathVariable Integer id,
+                                       @ApiParam(value = "修改客户信息, 仅传需要修改的字段")
+                                       @RequestBody CustomerVO customerVO) {
         return customerService.updateCustomerInfo(id, customerVO);
     }
 
-    @DeleteMapping("/customer/{id}")
-    public Response deleteCustomer(@PathVariable Integer id) {
+    @ApiOperation(value = "删除客户", notes = "对客户进行逻辑删除")
+    @DeleteMapping("/{id}")
+    public Response deleteCustomer(@ApiParam(value = "客户id") @PathVariable Integer id) {
         return customerService.deleteCustomer(id);
     }
 

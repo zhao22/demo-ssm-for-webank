@@ -2,12 +2,8 @@ package com.seanzx.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.seanzx.common.ClassUtil;
-import com.seanzx.common.Page;
-import com.seanzx.common.Response;
-import com.seanzx.common.ResponseBuilder;
+import com.seanzx.common.*;
 import com.seanzx.enums.DataStatus;
-import com.seanzx.enums.Regex;
 import com.seanzx.enums.ResponseCode;
 import com.seanzx.mapper.CustomerMapper;
 import com.seanzx.po.CustomerPO;
@@ -39,9 +35,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Response<Integer> addCustomer(CustomerVO customerVO) {
         // 1. 参数校验
+        // 用户名称不能为空; 手机号若不为空，需满足正则; 邮箱若不为空，需满足正则
         Response response = new ResponseBuilder().assertNotBlank(customerVO.getCustomerName(), "客户名称不能为空")
-                .assertNullOrMatch(customerVO.getMobile(), Regex.MOBILE.expr(), "手机号格式不正确")
-                .assertNullOrMatch(customerVO.getEmail(), Regex.EMAIL.expr(), "邮箱格式不正确")
+                .assertNullOrMatch(customerVO.getMobile(), Constants.Regex.MOBILE, "手机号格式不正确")
+                .assertNullOrMatch(customerVO.getEmail(), Constants.Regex.EMAIL, "邮箱格式不正确")
                 .response();
         if (!response.isSuccess()) {
             return response;
@@ -51,6 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (po == null) {
             return Response.ofError(ResponseCode.UNEXPECTED_ERROR, "保存失败");
         }
+        po.setId(null);
         po.setDataStatus(DataStatus.VALID.ordinal());
         // 3. 插入客户信息数据
         int rows = customerMapper.insertSelective(po);
@@ -82,13 +80,24 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public Response updateCustomerInfo(Integer id, CustomerVO customerVO) {
+        // 1. 参数校验
         Response response = new ResponseBuilder()
-                .assertNullOrMatch(customerVO.getMobile(), Regex.MOBILE.expr(), "手机号格式不正确")
-                .assertNullOrMatch(customerVO.getEmail(), Regex.EMAIL.expr(), "邮箱格式不正确")
+                .assertNullOrMatch(customerVO.getMobile(), Constants.Regex.MOBILE, "手机号格式不正确")
+                .assertNullOrMatch(customerVO.getEmail(), Constants.Regex.EMAIL, "邮箱格式不正确")
                 .response();
         if (!response.isSuccess()) {
             return response;
         }
+        // 2. 不允许更新失效数据
+        CustomerPO localData = customerMapper.selectByPrimaryKey(id);
+        if (localData != null) {
+            boolean dataIsInvalid = localData.getDataStatus() == null ||
+                    localData.getDataStatus() == DataStatus.INVALID.ordinal();
+            if (dataIsInvalid) {
+                return Response.ofSuccess();
+            }
+        }
+        // 3. 数据更新
         CustomerPO customerPO = ClassUtil.copy(customerVO, CustomerPO.class);
         if (customerPO == null) {
             return Response.ofError(ResponseCode.UNEXPECTED_ERROR, "更新失败");

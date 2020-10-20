@@ -9,6 +9,6 @@ spring:
 pagehelper:
   helper-dialect: mysql
 mybatis:
-  mapper-locations: classpath:mapper/*Mapper.xml,mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
