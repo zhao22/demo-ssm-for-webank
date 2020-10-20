@@ -15,12 +15,14 @@
         <include refid="customerInfo"></include>
         FROM t_customer
         WHERE id = #{id}
+        AND data_status = 1
     </select>
 
     <select id="findCustomers" resultMap="BaseResultMap">
         SELECT
         <include refid="customerInfo"></include>
         FROM t_customer
+        WHERE data_status = 1
     </select>
 
 </mapper>

@@ -16,11 +16,11 @@ public class Page<Element> {
         this.list = list;
     }
 
-    public void setTotal(long total) {
-        this.total = total;
+    public long getTotal() {
+        return total;
     }
 
-    public void setList(List<Element> list) {
-        this.list = list;
+    public List<Element> getList() {
+        return list;
     }
 }

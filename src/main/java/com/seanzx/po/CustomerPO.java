@@ -1,16 +1,22 @@
 package com.seanzx.po;
 
+import javax.persistence.*;
+
 /**
  * 客户信息 PO
  * @author zhaoxin
  * @date 2020/10/19
  */
+@Table(name = "t_customer")
 public class CustomerPO {
 
+    @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
     /**
      * 客户名称
      */
+    @Column( name = "customer_name")
     private String customerName;
     /**
      * 性别 (0: 女 1: 男)
@@ -35,6 +41,7 @@ public class CustomerPO {
     /**
      * 有效标识
      */
+    @Column(name = "data_status")
     private Integer dataStatus;
 
     public Integer getId() {

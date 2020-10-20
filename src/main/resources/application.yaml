@@ -8,3 +8,7 @@ spring:
     url: jdbc:mysql://localhost:3306/demo_webank?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
 pagehelper:
   helper-dialect: mysql
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml,mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

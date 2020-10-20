@@ -7,7 +7,7 @@ package com.seanzx.enums;
  */
 public enum Regex {
 
-    MOBILE("1[3456789]d{9}"),
+    MOBILE("1[3456789]\\d{9}"),
     EMAIL("(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)");
 
     private final String expression;

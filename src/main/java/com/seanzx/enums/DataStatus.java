@@ -8,11 +8,12 @@ package com.seanzx.enums;
 public enum DataStatus {
 
     /**
-     * 有效 (0)
+     * 无效 (0)
      */
-    VALID,
+    INVALID,
     /**
-     * 无效 (1)
+     * 有效 (1)
      */
-    INVALID
+    VALID
+
 }

@@ -38,7 +38,7 @@ public class ResponseBuilder {
      * 假定 String 不为 Blank
      */
     public ResponseBuilder assertNotBlank(String parameter, String errorMessage) {
-        setResponseByAssertion(parameter != null && StringUtils.isEmpty(parameter.trim()), errorMessage);
+        setResponseByAssertion(parameter != null && !StringUtils.isEmpty(parameter.trim()), errorMessage);
         return this;
     }
 

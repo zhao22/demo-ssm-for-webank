@@ -51,6 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (po == null) {
             return Response.ofError(ResponseCode.UNEXPECTED_ERROR, "保存失败");
         }
+        po.setDataStatus(DataStatus.VALID.ordinal());
         // 3. 插入客户信息数据
         int rows = customerMapper.insertSelective(po);
         if (rows != 1) {
@@ -81,6 +82,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public Response updateCustomerInfo(Integer id, CustomerVO customerVO) {
+        Response response = new ResponseBuilder()
+                .assertNullOrMatch(customerVO.getMobile(), Regex.MOBILE.expr(), "手机号格式不正确")
+                .assertNullOrMatch(customerVO.getEmail(), Regex.EMAIL.expr(), "邮箱格式不正确")
+                .response();
+        if (!response.isSuccess()) {
+            return response;
+        }
         CustomerPO customerPO = ClassUtil.copy(customerVO, CustomerPO.class);
         if (customerPO == null) {
             return Response.ofError(ResponseCode.UNEXPECTED_ERROR, "更新失败");
@@ -95,7 +103,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Response deleteCustomer(Integer id) {
         CustomerPO customerPO = new CustomerPO();
         customerPO.setId(id);
-        customerPO.setDataStatus(DataStatus.VALID.ordinal());
+        customerPO.setDataStatus(DataStatus.INVALID.ordinal());
         customerMapper.updateByPrimaryKeySelective(customerPO);
         return Response.ofSuccess();
     }
