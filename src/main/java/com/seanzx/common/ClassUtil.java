@@ -18,6 +18,9 @@ public class ClassUtil {
 
     /**
      * 生成 targetClass 对应的对象，并将 source 中的属性拷贝到 对象中
+     * 如果 source == null, 会返回 null
+     * 如果 targetClass 为 Class.class，会产生 InstantiationException, 返回 null
+     * 如果 targetClass 没有无参构造器，会 产生 IllegalAccessException, 返回 null
      */
     public static<S, T> T copy(S source, Class<T> targetClass){
         if (source == null) {

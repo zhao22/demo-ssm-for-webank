@@ -38,4 +38,24 @@ CREATE TABLE `t_customer`  (
 -- ----------------------------
 INSERT INTO `t_customer` VALUES (1, '张三', b'1', 120, '13637855354', 'seanzhxi@126.com', '深圳市南山区', b'1');
 
+CREATE TABLE `t_http_request` (
+  `id` varchar(32) NOT NULL,
+  `start_time` datetime DEFAULT NULL COMMENT '请求接收时间',
+  `uri` varchar(150) DEFAULT NULL COMMENT '请求uri',
+  `request_method` varchar(10) DEFAULT NULL COMMENT '请求方式',
+  `request_ip` varchar(50) DEFAULT NULL COMMENT '请求ip',
+  `exception_message` varchar(200) DEFAULT NULL COMMENT '异常返回信息',
+  `duration` bigint(20) DEFAULT NULL COMMENT '请求持续时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `t_database_operate` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `request_id` varchar(32) DEFAULT NULL COMMENT '对应t_http_request表 id',
+  `table_name` varchar(100) DEFAULT NULL COMMENT '操作表名',
+  `operate_type` varchar(20) DEFAULT NULL COMMENT '操作类型(INSERT, UPDATE, DELETE)',
+  `operate_sql` varchar(255) DEFAULT NULL COMMENT '操作的SQL',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;
