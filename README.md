@@ -10,11 +10,11 @@
 
 #### 请求处理流程图
 
-![image-20201022193442015](image-20201022193442015.png)
+![image-20201022193442015](http://47.108.68.81/webank-demo/image-20201022193442015.png)
 
 #### 项目结构图
 
-![image-20201022194142942](image-20201022194142942.png)
+![image-20201022194142942](http://47.108.68.81/webank-demo/image-20201022194142942.png)
 
 ### 启动步骤
 
@@ -29,7 +29,7 @@
 
 #### Response 在错误返回时产生raw type
 
- ![image-20201022192821142](image-20201022192821142.png)
+ ![image-20201022192821142](http://47.108.68.81/webank-demo/image-20201022192821142.png)
 
 Response 的泛型指定的是其 data 属性的类型，但在异常返回 Response.ofError(code, message)时，不会为data 设值，此时会产生raw type问题。
 
@@ -37,7 +37,7 @@ Response 的泛型指定的是其 data 属性的类型，但在异常返回 Resp
 
 #### ExcelUtil中Consumer语意不清
 
-![image-20201022201228884](image-20201022201228884.png)
+![image-20201022201228884](http://47.108.68.81/webank-demo/image-20201022201228884.png)
 
 这个方法将
 
@@ -57,17 +57,17 @@ Response 的泛型指定的是其 data 属性的类型，但在异常返回 Resp
 
 ##### 只添加标题行
 
-![image-20201022202037882](image-20201022202037882.png)
+![image-20201022202037882](http://47.108.68.81/webank-demo/image-20201022202037882.png)
 
 ##### 添加标题行和数据行
 
-![image-20201022202255367](image-20201022202255367.png)
+![image-20201022202255367](http://47.108.68.81/webank-demo/image-20201022202255367.png)
 
 该方法相邻的readExcelIntoObjects 也会有类似的问题。
 
 #### ClassUtil拷贝对象需要判空
 
-![image-20201022202503548](image-20201022202503548.png)
+![image-20201022202503548](http://47.108.68.81/webank-demo/image-20201022202503548.png)
 
 这个方法会生成 targetClass 对应的对象，并将 source 中的属性拷贝到 对象中。
 
@@ -77,7 +77,7 @@ Response 的泛型指定的是其 data 属性的类型，但在异常返回 Resp
 
 #### HttpRequest使用UUID做主键
 
-![image-20201022203447978](image-20201022203447978.png)
+![image-20201022203447978](http://47.108.68.81/webank-demo/image-20201022203447978.png)
 
 DataBaseOperatePO 选用 HttpRequestPO 的主键作为逻辑外键，但DataBaseOperatePO的保存时机往往在HttpRequestPO 之前。这里无法使用内置的自增主键来解决问题。作为一个可能产生大量数据的表，UUID虽然可以解决重复的问题，但也会为主键索引带来负担。之后可以选用其它轻量级的生成策略。
 
