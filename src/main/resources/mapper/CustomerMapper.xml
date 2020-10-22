@@ -23,6 +23,24 @@
         <include refid="customerInfo"></include>
         FROM t_customer
         WHERE data_status = 1
+        <if test="customerName != null and customerName != ''">
+            AND customer_name LIKE CONCAT('%', #{customerName}, '%')
+        </if>
+        <if test="gender != null and gender != ''">
+            AND gender = #{gender}
+        </if>
+        <if test="age != null and age != ''">
+            AND age = #{age}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND mobile = #{mobile}
+        </if>
+        <if test="email != null and email != ''">
+            AND email = #{email}
+        </if>
+        <if test="address != null and address != ''">
+            AND address = #{address}
+        </if>
     </select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.seanzx.mapper;
 
 import com.seanzx.po.CustomerPO;
+import com.seanzx.vo.CustomerVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,6 +16,10 @@ public interface CustomerMapper extends BaseMapper<CustomerPO> {
 
     CustomerPO findCustomer(Integer id);
 
-    List<CustomerPO> findCustomers();
+    /**
+     * 根据参数查询客户，姓名为模糊查询
+     * @return
+     */
+    List<CustomerPO> findCustomers(CustomerVO customerVO);
 
 }

@@ -49,7 +49,7 @@ class CustomerTests {
         // 2. 验证分页数据量为 total % size。当前页数为 total / size + 1
         int pageNum = 1, size = 10;
 
-        Response<Page<CustomerVO>> response = customerService.findCustomerByPage(pageNum, size);
+        Response<Page<CustomerVO>> response = customerService.findCustomerByPage(pageNum, size, new CustomerVO());
         Page<CustomerVO> pageData = response.getData();
         Assert.assertEquals(pageData.getTotal() % size, pageData.getList().size());
         Assert.assertEquals(pageData.getTotal() / size + 1, pageNum);

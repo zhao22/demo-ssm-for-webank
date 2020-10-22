@@ -1,5 +1,6 @@
 package com.seanzx.configuration;
 
+import com.google.common.collect.Sets;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -23,6 +24,7 @@ public class SwaggerConfig {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .pathMapping("/")
+                .produces(Sets.newHashSet("application/octet-stream"))
                 .select() // 选择哪些路径和api会生成document
                 .apis(RequestHandlerSelectors.basePackage("com.seanzx"))// 选择监控的package
                 // 对根下所有路径进行监控

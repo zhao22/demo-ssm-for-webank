@@ -29,9 +29,10 @@ public interface CustomerService {
      * 分页查询客户信息
      * @param pageNum 页码
      * @param size 一页的大小
+     * @param customerVO 其它查询参数(姓名为模糊查询)
      * @return 该页客户数据
      */
-    Response<Page<CustomerVO>> findCustomerByPage(Integer pageNum, Integer size);
+    Response<Page<CustomerVO>> findCustomerByPage(Integer pageNum, Integer size, CustomerVO customerVO);
 
     /**
      * 更新客户信息

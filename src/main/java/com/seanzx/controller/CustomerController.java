@@ -36,8 +36,9 @@ public class CustomerController {
     @GetMapping("/page/{pageNum}")
     public Response<Page<CustomerVO>> findCustomerByPage(@ApiParam(value = "页码") @PathVariable Integer pageNum,
                                                          @ApiParam(value = "分页大小")
-                                                         @RequestParam(required = false, defaultValue = "10") Integer size) {
-        return customerService.findCustomerByPage(pageNum, size);
+                                                         @RequestParam(required = false, defaultValue = "10") Integer size,
+                                                         @ApiParam(value = "查询参数(姓名为模糊查询)")CustomerVO customerVO) {
+        return customerService.findCustomerByPage(pageNum, size, customerVO);
     }
 
 

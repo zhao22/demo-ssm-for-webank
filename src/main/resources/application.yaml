@@ -6,6 +6,11 @@ spring:
     username: root
     password: 110622
     url: jdbc:mysql://localhost:3306/demo_webank?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+# 全局异常需要拦截 404 异常时，开放以下配置。开放时无法展示swagger-ui页面
+#  mvc:
+#    throw-exception-if-no-handler-found: true
+#  resources:
+#    add-mappings: false
 pagehelper:
   helper-dialect: mysql
 mybatis:

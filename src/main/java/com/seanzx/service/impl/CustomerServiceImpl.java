@@ -68,10 +68,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public Response<Page<CustomerVO>> findCustomerByPage(Integer pageNum, Integer size) {
+    public Response<Page<CustomerVO>> findCustomerByPage(Integer pageNum, Integer size, CustomerVO customerVO) {
         // 1. 得到分页的 customerPO 集合
         PageHelper.startPage(pageNum, size);
-        List<CustomerPO> pos = customerMapper.findCustomers();
+        List<CustomerPO> pos = customerMapper.findCustomers(customerVO);
         PageInfo<CustomerPO> pageInfo = new PageInfo<>(pos);
         // 2. 转换为 customerVO 集合返回
         return Response.ofPage(pageInfo.getTotal(), ClassUtil.copy(pageInfo.getList(), CustomerVO.class));

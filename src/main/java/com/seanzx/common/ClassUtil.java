@@ -50,4 +50,17 @@ public class ClassUtil {
         return targetList;
     }
 
+    /**
+     * 将对象转化为对应的Class并返回
+     * value 等于 null 时, 返回 null
+     * 目标Class为 value 的所属类或父类或父接口时,将 value 转换为对应类型返回
+     * 否则返回 null
+     */
+    public static <T> T cast(Object value, Class<T> targetClass) {
+        if (targetClass.isInstance(value)) {
+            return targetClass.cast(value);
+        }
+        return null;
+    }
+
 }
