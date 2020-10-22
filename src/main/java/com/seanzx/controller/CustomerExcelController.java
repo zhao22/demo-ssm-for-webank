@@ -23,7 +23,7 @@ public class CustomerExcelController {
     @Autowired
     private CustomerExcelService customerExcelService;
 
-    @ApiOperation(value = "获取客户信息导入模板")
+    @ApiOperation(value = "获取客户信息导入模板", produces = "application/octet-stream")
     @GetMapping("/template")
     public void getCustomerExcelTemplate() {
         customerExcelService.writeTemplateFileIntoResponse();
@@ -35,7 +35,7 @@ public class CustomerExcelController {
         return customerExcelService.saveCustomerInfoByFile(multipartFile);
     }
 
-    @ApiOperation(value = "导出客户信息")
+    @ApiOperation(value = "导出客户信息", produces = "application/octet-stream")
     @GetMapping("/{pageNum}")
     public void exportCustomers(@ApiParam(value = "页码") @PathVariable Integer pageNum,
                                 @ApiParam(value = "分页大小")
