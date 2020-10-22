@@ -32,8 +32,7 @@ public class CustomerExcelServiceImpl implements CustomerExcelService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public void writeTemplateFileIntoResponse() {
-        ExcelUtil.
-                writeIntoResponse("customer_template.xls",
+        ExcelUtil.writeIntoResponse("customer_template.xls",
                 (sheet) -> ExcelUtil.createTitleRow(sheet, CustomerExcelColumns.values()));
     }
 

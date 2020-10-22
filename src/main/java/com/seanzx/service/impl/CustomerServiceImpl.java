@@ -79,9 +79,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Response updateCustomerInfo(Integer id, CustomerVO customerVO) {
+    public Response<?> updateCustomerInfo(Integer id, CustomerVO customerVO) {
         // 1. 参数校验
-        Response response = new ResponseBuilder()
+        Response<?> response = new ResponseBuilder()
                 .assertNullOrMatch(customerVO.getMobile(), Constants.Regex.MOBILE, "手机号格式不正确")
                 .assertNullOrMatch(customerVO.getEmail(), Constants.Regex.EMAIL, "邮箱格式不正确")
                 .response();
@@ -109,7 +109,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Response deleteCustomer(Integer id) {
+    public Response<?> deleteCustomer(Integer id) {
         CustomerPO customerPO = new CustomerPO();
         customerPO.setId(id);
         customerPO.setDataStatus(DataStatus.INVALID.ordinal());

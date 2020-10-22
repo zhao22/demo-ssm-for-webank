@@ -44,7 +44,7 @@ public class CustomerController {
 
     @ApiOperation(value = "修改客户信息")
     @PutMapping("/{id}")
-    public Response updateCustomerInfo(@ApiParam(value = "客户id") @PathVariable Integer id,
+    public Response<?> updateCustomerInfo(@ApiParam(value = "客户id") @PathVariable Integer id,
                                        @ApiParam(value = "修改客户信息, 仅传需要修改的字段")
                                        @RequestBody CustomerVO customerVO) {
         return customerService.updateCustomerInfo(id, customerVO);
@@ -52,7 +52,7 @@ public class CustomerController {
 
     @ApiOperation(value = "删除客户", notes = "对客户进行逻辑删除")
     @DeleteMapping("/{id}")
-    public Response deleteCustomer(@ApiParam(value = "客户id") @PathVariable Integer id) {
+    public Response<?> deleteCustomer(@ApiParam(value = "客户id") @PathVariable Integer id) {
         return customerService.deleteCustomer(id);
     }
 

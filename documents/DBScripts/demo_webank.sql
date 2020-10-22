@@ -36,7 +36,7 @@ CREATE TABLE `t_customer`  (
 -- ----------------------------
 -- Records of t_customer
 -- ----------------------------
-INSERT INTO `t_customer` VALUES (1, '张三', b'1', 120, '13637855354', 'seanzhxi@126.com', '深圳市南山区', b'1');
+INSERT INTO `t_customer` VALUES (1, '张三', 1, 120, '13637855354', 'seanzhxi@126.com', '深圳市南山区', 1);
 
 CREATE TABLE `t_http_request` (
   `id` varchar(32) NOT NULL,

@@ -40,12 +40,12 @@ public interface CustomerService {
      * @param customerVO 需要更新的用户信息，不需要更新的字段可为空
      * @return 更新结果
      */
-    Response updateCustomerInfo(Integer id, CustomerVO customerVO);
+    Response<?> updateCustomerInfo(Integer id, CustomerVO customerVO);
 
     /**
      * 删除客户信息（逻辑删除，置 data_status = 0）
      * @param id 客户 id
      * @return 删除结果
      */
-    Response deleteCustomer(Integer id);
+    Response<?> deleteCustomer(Integer id);
 }
