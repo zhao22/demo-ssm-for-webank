@@ -1,6 +1,6 @@
 package com.seanzx.interceptor;
 
-import com.seanzx.common.RequestIpUtil;
+import com.seanzx.util.RequestIpUtil;
 import com.seanzx.common.SystemLogQueue;
 import com.seanzx.po.HttpRequestPO;
 import org.slf4j.Logger;
@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;

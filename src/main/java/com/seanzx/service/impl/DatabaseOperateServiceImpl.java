@@ -1,6 +1,6 @@
 package com.seanzx.service.impl;
 
-import com.seanzx.common.Response;
+import com.seanzx.common.response.Response;
 import com.seanzx.enums.ResponseCode;
 import com.seanzx.mapper.DatabaseOperateMapper;
 import com.seanzx.po.DatabaseOperatePO;

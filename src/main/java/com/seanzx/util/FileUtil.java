@@ -1,12 +1,14 @@
-package com.seanzx.common;
+package com.seanzx.util;
 
 
-import sun.misc.BASE64Encoder;
+
+import org.apache.commons.codec.binary.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * 文件处理工具类
@@ -25,9 +27,9 @@ public class FileUtil {
     public static String filenameEncoding(String filename, HttpServletRequest request) throws IOException {
         String agent = request.getHeader("User-Agent"); //获取浏览器
         if (agent.contains("Firefox")) {
-            BASE64Encoder base64Encoder = new BASE64Encoder();
+            Base64 base64 = new Base64();
             filename = "=?utf-8?B?"
-                    + base64Encoder.encode(filename.getBytes(StandardCharsets.UTF_8))
+                    + Arrays.toString(base64.encode(filename.getBytes(StandardCharsets.UTF_8)))
                     + "?=";
         } else if(agent.contains("MSIE")) {
             filename = URLEncoder.encode(filename, "utf-8");

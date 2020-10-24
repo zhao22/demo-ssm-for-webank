@@ -1,7 +1,7 @@
 package com.seanzx.service.impl;
 
-import com.seanzx.common.ClassUtil;
-import com.seanzx.common.Response;
+import com.seanzx.util.ClassUtil;
+import com.seanzx.common.response.Response;
 import com.seanzx.enums.ResponseCode;
 import com.seanzx.mapper.HttpRequestMapper;
 import com.seanzx.po.HttpRequestPO;

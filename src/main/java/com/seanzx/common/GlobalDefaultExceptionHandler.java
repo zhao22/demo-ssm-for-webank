@@ -1,5 +1,7 @@
 package com.seanzx.common;
 
+import com.seanzx.common.response.ApplicationException;
+import com.seanzx.common.response.Response;
 import com.seanzx.enums.ResponseCode;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;

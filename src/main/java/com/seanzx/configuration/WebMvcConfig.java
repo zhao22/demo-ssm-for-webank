@@ -1,5 +1,9 @@
 package com.seanzx.configuration;
 
+import com.seanzx.common.email.EmailConfigure;
+import com.seanzx.common.email.EmailSender;
+import com.seanzx.common.email.EmailSenderDecorator;
+import com.seanzx.common.email.WebankEmailConfigure;
 import com.seanzx.interceptor.HttpRequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +24,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private HttpRequestInterceptor httpRequestInterceptor;
+    @Autowired
+    private WebankEmailConfigure webankEmailConfigure;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -30,4 +36,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/webjars/*"));
     }
 
+
+    @Bean
+    public EmailSenderDecorator emailSenderDecorator() {
+        return new EmailSenderDecorator(new EmailSender(webankEmailConfigure));
+    }
 }

@@ -1,6 +1,6 @@
 package com.seanzx.enums;
 
-import com.seanzx.common.ExcelUtil;
+import com.seanzx.util.ExcelUtil;
 import com.seanzx.vo.CustomerVO;
 import org.apache.poi.ss.usermodel.Cell;
 

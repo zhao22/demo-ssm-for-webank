@@ -1,4 +1,4 @@
-package com.seanzx.common;
+package com.seanzx.common.response;
 
 import com.seanzx.enums.ResponseCode;
 import org.springframework.util.CollectionUtils;

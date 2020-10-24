@@ -19,10 +19,10 @@
         FROM
         t_http_request
         <where>
-            <if test="start != null and start != ''">
+            <if test="start != null">
                 AND start_time &gt;= #{start}
             </if>
-            <if test="end != null and end != ''">
+            <if test="end != null">
                 AND start_time &lt;= #{end}
             </if>
             <if test="minDuration != null and minDuration != ''">

@@ -17,3 +17,17 @@ mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+webank:
+  email:
+    configuration:
+      from: useyourownhost
+      username: useyourownusernamer
+      password: useyourownpassword
+      host: smtp.qq.com
+      port: 587
+      encryption: tls
+    manager:
+      email-box: seanzhxi@126.com
+  slow-request:
+    crontab: 0 0 8 * * ?
+    waterline: 5

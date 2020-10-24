@@ -1,8 +1,8 @@
 package com.seanzx.service.impl;
 
-import com.seanzx.common.ExcelUtil;
-import com.seanzx.common.Page;
-import com.seanzx.common.Response;
+import com.seanzx.util.ExcelUtil;
+import com.seanzx.common.response.Page;
+import com.seanzx.common.response.Response;
 import com.seanzx.enums.CustomerExcelColumns;
 import com.seanzx.enums.ResponseCode;
 import com.seanzx.service.CustomerExcelService;

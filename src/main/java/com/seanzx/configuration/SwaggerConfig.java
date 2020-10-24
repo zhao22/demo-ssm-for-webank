@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select() // 选择哪些路径和api会生成document
@@ -29,7 +29,6 @@ public class SwaggerConfig {
                 // 对根下所有路径进行监控
                 .paths(PathSelectors.regex("/.*"))
                 .build();
-        return docket;
     }
 
     private ApiInfo apiInfo() {

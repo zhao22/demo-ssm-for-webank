@@ -1,4 +1,4 @@
-package com.seanzx.common;
+package com.seanzx.common.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.pagehelper.PageInfo;

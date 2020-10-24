@@ -1,4 +1,4 @@
-package com.seanzx.common;
+package com.seanzx.common.response;
 
 import java.util.List;
 

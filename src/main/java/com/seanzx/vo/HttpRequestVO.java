@@ -88,4 +88,17 @@ public class HttpRequestVO {
     public void setDuration(Long duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "HttpRequestVO{" +
+                "id='" + id + '\'' +
+                ", startTime=" + startTime +
+                ", uri='" + uri + '\'' +
+                ", requestMethod='" + requestMethod + '\'' +
+                ", requestIp='" + requestIp + '\'' +
+                ", exceptionMessage='" + exceptionMessage + '\'' +
+                ", duration=" + duration +
+                '}';
+    }
 }

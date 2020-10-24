@@ -1,4 +1,4 @@
-package com.seanzx.common;
+package com.seanzx.common.response;
 
 /**
  * 公用异常

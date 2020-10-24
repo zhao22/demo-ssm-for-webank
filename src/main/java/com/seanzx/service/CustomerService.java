@@ -1,7 +1,7 @@
 package com.seanzx.service;
 
-import com.seanzx.common.Page;
-import com.seanzx.common.Response;
+import com.seanzx.common.response.Page;
+import com.seanzx.common.response.Response;
 import com.seanzx.vo.CustomerVO;
 
 /**

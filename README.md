@@ -10,18 +10,23 @@
 
 #### 请求处理流程图
 
-![image-20201022193442015](http://47.108.68.81/webank-demo/image-20201022193442015.png)
+![image-20201024141445405](http://47.108.68.81/webank-demo/image-20201024141445405.png)
 
 #### 项目结构图
 
-![image-20201022194142942](http://47.108.68.81/webank-demo/image-20201022194142942.png)
+![image-20201024142019563](http://47.108.68.81/webank-demo/image-20201024142019563.png)
+
+### 所需环境
+
+- JDK 1.8 + 
+- gradle 6.3 +
 
 ### 启动步骤
 
 1. 使用idea 用gradle项目的形式导入项目。
 2. 在MySQL数据库中新建 demo_webank 数据库，执行 SQL 初始化文件 ./documents/DBScripts/demo_webank.sql
-3. 进入 ./src/resources/application.yaml 中，将spring.datasource下的配置改为您自己数据库的配置
-4. build gradle 项目，如果您在 build 过程中遇到问题，可能是gradle版本和项目使用的springboot版本有冲突，请尝试按照提示将gradle升级到 6.3 以上。
+3. 进入 ./src/resources/application.yaml 中，将spring.datasource下的配置改为您自己数据库的配置，将webank.email.configuration下的配置改为您自己的邮箱配置。
+4. build gradle 项目。
 5. 启动springboot 项目。
 6. 您可以通过访问 http://localhost:8080/swagger-ui.html ，快速了解项目暴露的接口，输入相应参数进行测试。
 
@@ -73,13 +78,21 @@ Response 的泛型指定的是其 data 属性的类型，但在异常返回 Resp
 
 方法本身是为了语意简单清晰地表达拷贝并生成这一行为，却因为接受时需要判空显得比较累赘。如果没有后面列表的拷贝，我会选择弃用这个方法。
 
-根据源码，classs.newInstance() 这个方法，在 class 为 Class.class或 targetClass没有无参构造时，分别会抛出InstantiationException和IllegalAccessException。导致返回值为null。
+根据源码，class.newInstance() 这个方法，在 class 为 Class.class或 targetClass没有无参构造时，分别会抛出InstantiationException和IllegalAccessException。导致返回值为null。
 
 #### HttpRequest使用UUID做主键
 
 ![image-20201022203447978](http://47.108.68.81/webank-demo/image-20201022203447978.png)
 
 DataBaseOperatePO 选用 HttpRequestPO 的主键作为逻辑外键，但DataBaseOperatePO的保存时机往往在HttpRequestPO 之前。这里无法使用内置的自增主键来解决问题。作为一个可能产生大量数据的表，UUID虽然可以解决重复的问题，但也会为主键索引带来负担。之后可以选用其它轻量级的生成策略。
+
+#### 邮件发送记录没有保存进数据库
+
+正常在发送邮件需要记录数据库，目前系统暂未实现该功能。
+
+#### 需要系统参数表进行系统参数的实时获取
+
+目前慢查询水位线，管理人邮箱等资源是保存在配置文件中的，在需要修改配置时需要重启服务才能生效。可以设置系统参数表，对系统参数的修改可以实时生效。
 
 
 

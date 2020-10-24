@@ -1,4 +1,4 @@
-package com.seanzx.common;
+package com.seanzx.util;
 
 import javax.servlet.http.HttpServletRequest;
 
