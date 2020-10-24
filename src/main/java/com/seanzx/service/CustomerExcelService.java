@@ -16,7 +16,11 @@ public interface CustomerExcelService {
      */
     void writeTemplateFileIntoResponse();
 
-
+    /**
+     * 根据Excel数据保存客户信息
+     * @param multipartFile Excel 文件
+     * @return 保存结果
+     */
     Response<?> saveCustomerInfoByFile(MultipartFile multipartFile);
     /**
      * 导出客户信息

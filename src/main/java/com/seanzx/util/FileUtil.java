@@ -17,6 +17,11 @@ import java.util.Arrays;
  */
 public class FileUtil {
 
+    public static final String FIREFOX_AGENT = "Firefox";
+
+    public static final String IE_AGENT = "MSIE";
+
+    public static final String SAFARI_AGENT = "Safari";
     /**
      * 根据请求浏览器对文件名进行相应的编码
      * @param filename 文件名
@@ -25,15 +30,16 @@ public class FileUtil {
      * @throws IOException
      */
     public static String filenameEncoding(String filename, HttpServletRequest request) throws IOException {
-        String agent = request.getHeader("User-Agent"); //获取浏览器
-        if (agent.contains("Firefox")) {
+        //获取浏览器
+        String agent = request.getHeader("User-Agent");
+        if (agent.contains(FIREFOX_AGENT)) {
             Base64 base64 = new Base64();
             filename = "=?utf-8?B?"
                     + Arrays.toString(base64.encode(filename.getBytes(StandardCharsets.UTF_8)))
                     + "?=";
-        } else if(agent.contains("MSIE")) {
+        } else if(agent.contains(IE_AGENT)) {
             filename = URLEncoder.encode(filename, "utf-8");
-        } else if(agent.contains ("Safari")) {
+        } else if(agent.contains (SAFARI_AGENT)) {
             filename = new String (filename.getBytes (StandardCharsets.UTF_8),"ISO8859-1");
         } else {
             filename = URLEncoder.encode(filename, "utf-8");

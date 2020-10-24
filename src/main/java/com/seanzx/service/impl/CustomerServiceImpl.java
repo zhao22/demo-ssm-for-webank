@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerMapper customerMapper;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Response<Integer> addCustomer(CustomerVO customerVO) {
         // 1. 参数校验
         // 用户名称不能为空; 手机号若不为空，需满足正则; 邮箱若不为空，需满足正则
@@ -64,14 +64,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     public Response<CustomerVO> findCustomer(Integer id) {
         CustomerPO po = customerMapper.findCustomer(id);
         return Response.ofSuccess(ClassUtil.copy(po, CustomerVO.class));
     }
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     public Response<Page<CustomerVO>> findCustomerByPage(Integer pageNum, Integer size, CustomerVO customerVO) {
         // 1. 得到分页的 customerPO 集合
         PageHelper.startPage(pageNum, size);
@@ -82,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Response<?> updateCustomerInfo(Integer id, CustomerVO customerVO) {
         // 1. 参数校验
         Response<?> response = new ResponseBuilder()
@@ -102,22 +102,22 @@ public class CustomerServiceImpl implements CustomerService {
             }
         }
         // 3. 数据更新
-        CustomerPO customerPO = ClassUtil.copy(customerVO, CustomerPO.class);
-        if (customerPO == null) {
+        CustomerPO customer = ClassUtil.copy(customerVO, CustomerPO.class);
+        if (customer == null) {
             return Response.ofError(ResponseCode.UNEXPECTED_ERROR, "更新失败");
         }
-        customerPO.setId(id);
-        customerMapper.updateByPrimaryKeySelective(customerPO);
+        customer.setId(id);
+        customerMapper.updateByPrimaryKeySelective(customer);
         return Response.ofSuccess();
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Response<?> deleteCustomer(Integer id) {
-        CustomerPO customerPO = new CustomerPO();
-        customerPO.setId(id);
-        customerPO.setDataStatus(DataStatus.INVALID.ordinal());
-        customerMapper.updateByPrimaryKeySelective(customerPO);
+        CustomerPO customer = new CustomerPO();
+        customer.setId(id);
+        customer.setDataStatus(DataStatus.INVALID.ordinal());
+        customerMapper.updateByPrimaryKeySelective(customer);
         return Response.ofSuccess();
     }
 }

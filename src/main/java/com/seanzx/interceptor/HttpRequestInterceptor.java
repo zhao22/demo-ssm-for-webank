@@ -22,22 +22,22 @@ import java.util.UUID;
 @Component
 public class HttpRequestInterceptor extends HandlerInterceptorAdapter {
 
-    private static final ThreadLocal<HttpRequestPO> httpRequestPOThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<HttpRequestPO> HTTP_REQUEST_THREAD_LOCAL = new ThreadLocal<>();
 
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestInterceptor.class);
 
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpRequestPO httpRequestPO = new HttpRequestPO();
-        httpRequestPOThreadLocal.set(httpRequestPO);
+        HttpRequestPO httpRequest = new HttpRequestPO();
+        HTTP_REQUEST_THREAD_LOCAL.set(httpRequest);
 
-        httpRequestPO.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        httpRequestPO.setStartTime(new Date());
-        httpRequestPO.setUri(request.getRequestURI());
-        httpRequestPO.setRequestMethod(request.getMethod());
-        httpRequestPO.setRequestIp(RequestIpUtil.getIP(request));
-        logger.info("Request[ip={}, uri={}]", httpRequestPO.getRequestIp(), httpRequestPO.getUri());
+        httpRequest.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        httpRequest.setStartTime(new Date());
+        httpRequest.setUri(request.getRequestURI());
+        httpRequest.setRequestMethod(request.getMethod());
+        httpRequest.setRequestIp(RequestIpUtil.getIp(request));
+        logger.info("Request[ip={}, uri={}]", httpRequest.getRequestIp(), httpRequest.getUri());
         return true;
     }
 
@@ -45,18 +45,18 @@ public class HttpRequestInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response,
                                 Object handler, Exception ex) throws Exception {
-        HttpRequestPO httpRequestPO =httpRequestPOThreadLocal.get();
-        if (httpRequestPO != null) {
-            httpRequestPO.setDuration(new Date().getTime() - httpRequestPO.getStartTime().getTime());
+        HttpRequestPO httpRequest =HTTP_REQUEST_THREAD_LOCAL.get();
+        if (httpRequest != null) {
+            httpRequest.setDuration(System.currentTimeMillis() - httpRequest.getStartTime().getTime());
             if (null != ex) {
-                httpRequestPO.setExceptionMessage(ex.getMessage());
+                httpRequest.setExceptionMessage(ex.getMessage());
             }
-            SystemLogQueue.put(httpRequestPO);
+            SystemLogQueue.put(httpRequest);
         }
-        httpRequestPOThreadLocal.set(null);
+        HTTP_REQUEST_THREAD_LOCAL.remove();
     }
 
-    public HttpRequestPO getThreadLocalHttpRequestPO() {
-        return httpRequestPOThreadLocal.get();
+    public HttpRequestPO getThreadLocalHttpRequest() {
+        return HTTP_REQUEST_THREAD_LOCAL.get();
     }
 }

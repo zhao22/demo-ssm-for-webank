@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,14 @@ public class CustomerExcelServiceImpl implements CustomerExcelService {
     private CustomerService customerService;
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     public void writeTemplateFileIntoResponse() {
         ExcelUtil.writeIntoResponse("customer_template.xls",
                 (sheet) -> ExcelUtil.createTitleRow(sheet, CustomerExcelColumns.values()));
     }
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     public Response<?> saveCustomerInfoByFile(MultipartFile multipartFile) {
         // 1. 将Excel中数据读为 CustomerVO
         CustomerExcelColumns[] columns = CustomerExcelColumns.values();
@@ -62,7 +63,7 @@ public class CustomerExcelServiceImpl implements CustomerExcelService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     public void exportFileIntoResponse(int pageNum,
                                        int size,
                                        CustomerVO customerVO) {

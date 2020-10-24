@@ -24,12 +24,12 @@ public class DatabaseOperateServiceImpl implements DatabaseOperateService {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseOperateServiceImpl.class);
 
     @Override
-    public Response<Integer> add(DatabaseOperatePO databaseOperatePO) {
-        int rows = databaseOperateMapper.insertSelective(databaseOperatePO);
+    public Response<Integer> add(DatabaseOperatePO databaseOperate) {
+        int rows = databaseOperateMapper.insertSelective(databaseOperate);
         if (rows != 1) {
-            logger.error("保存异常，操作行数为:{}, customerVO:{}", rows, databaseOperatePO.toString());
+            logger.error("保存异常，操作行数为:{}, customerVO:{}", rows, databaseOperate.toString());
             return Response.ofError(ResponseCode.UNEXPECTED_ERROR, "保存失败");
         }
-        return Response.ofSuccess(databaseOperatePO.getId());
+        return Response.ofSuccess(databaseOperate.getId());
     }
 }

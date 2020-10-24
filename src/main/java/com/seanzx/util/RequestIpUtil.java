@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RequestIpUtil {
 
-    private static final String[] names = {
+    private static final String[] NAMES = {
             "x-forwarded-for",
             "Proxy-Client-IP",
             "WL-Proxy-Client-IP",
@@ -22,10 +22,10 @@ public class RequestIpUtil {
      * @param request
      * @return
      */
-    public static String getIP(HttpServletRequest request) {
+    public static String getIp(HttpServletRequest request) {
         String ip = null;
         // 获取 ip 地址
-        for (String name : names) {
+        for (String name : NAMES) {
             ip = request.getHeader(name);
             if (isValid(ip)) {
                 break;

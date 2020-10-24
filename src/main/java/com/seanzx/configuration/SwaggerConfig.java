@@ -24,8 +24,10 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .pathMapping("/")
-                .select() // 选择哪些路径和api会生成document
-                .apis(RequestHandlerSelectors.basePackage("com.seanzx"))// 选择监控的package
+                // 选择哪些路径和api会生成document
+                .select()
+                // 选择监控的package
+                .apis(RequestHandlerSelectors.basePackage("com.seanzx"))
                 // 对根下所有路径进行监控
                 .paths(PathSelectors.regex("/.*"))
                 .build();

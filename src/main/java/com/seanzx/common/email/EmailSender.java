@@ -17,6 +17,8 @@ public class EmailSender {
 
 
     public static final String RESPONSE_HEADER = "Message-ID";
+    public static final String SSL_ENCRYPTION = "ssl";
+    public static final String TLS_ENCRYPTION = "tls";
 
     private EmailConfigure emailConfigure;
 
@@ -46,9 +48,9 @@ public class EmailSender {
         // 1. 设置基本属性
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
-        if ("ssl".equals(this.emailConfigure.getEncryption())) {
+        if (SSL_ENCRYPTION.equals(this.emailConfigure.getEncryption())) {
             props.put("mail.smtp.ssl.enable", "true");
-        } else if ("tls".equals(this.emailConfigure.getEncryption())) {
+        } else if (TLS_ENCRYPTION.equals(this.emailConfigure.getEncryption())) {
             props.put("mail.smtp.starttls.enable", "true");
         }
         props.put("mail.smtp.host", this.emailConfigure.getHost());
@@ -105,6 +107,11 @@ public class EmailSender {
      * @param <T>
      */
     public interface MessageExceptionConsumer<T> {
+        /**
+         * 和Consumer使用一致，不过该方法可以抛出 MessagingException
+         * @param t 传递参数，一般是message
+         * @throws MessagingException
+         */
         void accept(T t) throws MessagingException;
     }
 }

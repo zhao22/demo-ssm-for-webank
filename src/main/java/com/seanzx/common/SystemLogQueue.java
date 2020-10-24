@@ -29,20 +29,20 @@ public class SystemLogQueue {
     @Autowired
     private DatabaseOperateService databaseOperateService;
 
-    private static final BlockingDeque<HttpRequestPO> requestQueue = new LinkedBlockingDeque<>();
+    private static final BlockingDeque<HttpRequestPO> REQUEST_QUEUE = new LinkedBlockingDeque<>();
 
-    private static final BlockingDeque<DatabaseOperatePO> databaseOperateQueue = new LinkedBlockingDeque<>();
+    private static final BlockingDeque<DatabaseOperatePO> DATABASE_OPERATE_QUEUE = new LinkedBlockingDeque<>();
 
-    private final ExecutorService requestPool = singleThreadExecutor();
+    private final ExecutorService requestPool = singleThreadExecutor("thread-save-http-request");
 
-    private final ExecutorService dataBaseOperatePool = singleThreadExecutor();
+    private final ExecutorService dataBaseOperatePool = singleThreadExecutor("thread-save-database-operate");
 
-    public static void put(HttpRequestPO httpRequestPO) {
-        requestQueue.offer(httpRequestPO);
+    public static void put(HttpRequestPO httpRequest) {
+        REQUEST_QUEUE.offer(httpRequest);
     }
 
-    public static void put(DatabaseOperatePO databaseOperatePO) {
-        databaseOperateQueue.offer(databaseOperatePO);
+    public static void put(DatabaseOperatePO databaseOperate) {
+        DATABASE_OPERATE_QUEUE.offer(databaseOperate);
     }
 
     @PostConstruct
@@ -57,8 +57,8 @@ public class SystemLogQueue {
             while(true) {
                 try {
                     // 如果暂时没有请求，将会阻塞于此
-                    HttpRequestPO httpRequestPO = requestQueue.take();
-                    httpRequestService.add(httpRequestPO);
+                    HttpRequestPO httpRequest = REQUEST_QUEUE.take();
+                    httpRequestService.add(httpRequest);
                 } catch (Exception e) {
                     logger.info("http请求数据保存异常", e);
                 }
@@ -72,8 +72,8 @@ public class SystemLogQueue {
             while(true) {
                 try {
                     // 如果暂时没有请求，将会阻塞于此
-                    DatabaseOperatePO databaseOperatePO = databaseOperateQueue.take();
-                    databaseOperateService.add(databaseOperatePO);
+                    DatabaseOperatePO databaseOperate = DATABASE_OPERATE_QUEUE.take();
+                    databaseOperateService.add(databaseOperate);
                 } catch (Exception e) {
                     logger.info("数据库操作数据保存异常", e);
                 }
@@ -81,7 +81,14 @@ public class SystemLogQueue {
         });
     }
 
-    private ExecutorService singleThreadExecutor() {
-        return new ThreadPoolExecutor(1, 1, 5, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+    private ExecutorService singleThreadExecutor(String threadName) {
+        return new ThreadPoolExecutor(1, 1, 5,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(),
+                r -> {
+                    Thread t = new Thread(r);
+                    t.setName(threadName);
+                    return t;
+                });
     }
 }

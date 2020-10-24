@@ -12,9 +12,9 @@ public interface DatabaseOperateService {
 
     /**
      * 新增数据库操作日志
-     * @param databaseOperatePO
+     * @param databaseOperate
      * @return
      */
-    Response<Integer> add(DatabaseOperatePO databaseOperatePO);
+    Response<Integer> add(DatabaseOperatePO databaseOperate);
 
 }

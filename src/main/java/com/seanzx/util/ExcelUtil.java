@@ -168,18 +168,23 @@ public class ExcelUtil {
         /**
          * 获取列名
          * 用于将标题 写入 Excel中
+         * @return 列名
          */
         String getColumnName();
 
         /**
          * 通过vo对象获取列的值
          * 用于将vo的属性值写入Excel对应列
+         * @param vo 需要取值的vo对象
+         * @return 对象的列值
          */
         Object getValue(T vo);
 
         /**
          * 将targetValue 写入 vo 对应列中
          * 用于将Excel对应列值写入 vo 的属性值
+         * @param vo 需要设值的 vo 对象
+         * @param targetValue 需要设置的值
          */
         void setValue(T vo, Cell targetValue);
     }

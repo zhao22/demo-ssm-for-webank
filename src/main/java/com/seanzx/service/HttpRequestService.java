@@ -16,10 +16,10 @@ public interface HttpRequestService {
 
     /**
      * 新增 http 请求日志
-     * @param httpRequestPO 请求日志 po
+     * @param httpRequest 请求日志 po
      * @return 新增记录 id
      */
-    Response<String> add(HttpRequestPO httpRequestPO);
+    Response<String> add(HttpRequestPO httpRequest);
 
     /**
      * 根据请求接收时间 (start <= start_time < end)查询响应时间超过指定时间(minDuration)的请求

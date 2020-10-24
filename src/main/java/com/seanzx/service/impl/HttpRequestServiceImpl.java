@@ -29,18 +29,18 @@ public class HttpRequestServiceImpl implements HttpRequestService {
     private HttpRequestMapper httpRequestMapper;
 
     @Override
-    public Response<String> add(HttpRequestPO httpRequestPO) {
-        int rows = httpRequestMapper.insertSelective(httpRequestPO);
+    public Response<String> add(HttpRequestPO httpRequest) {
+        int rows = httpRequestMapper.insertSelective(httpRequest);
         if (rows != 1) {
-            logger.error("保存异常，操作行数为:{}, customerVO:{}", rows, httpRequestPO.toString());
+            logger.error("保存异常，操作行数为:{}, customerVO:{}", rows, httpRequest.toString());
             return Response.ofError(ResponseCode.UNEXPECTED_ERROR, "保存失败");
         }
-        return Response.ofSuccess(httpRequestPO.getId());
+        return Response.ofSuccess(httpRequest.getId());
     }
 
     @Override
     public Response<List<HttpRequestVO>> findHttpRequests(Date startDate, Date endDate, Long minDuration) {
-        List<HttpRequestPO> httpRequestPOs = httpRequestMapper.findHttpRequests(startDate, endDate, minDuration);
-        return Response.ofSuccess(ClassUtil.copy(httpRequestPOs, HttpRequestVO.class));
+        List<HttpRequestPO> httpRequest = httpRequestMapper.findHttpRequests(startDate, endDate, minDuration);
+        return Response.ofSuccess(ClassUtil.copy(httpRequest, HttpRequestVO.class));
     }
 }

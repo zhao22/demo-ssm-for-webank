@@ -71,10 +71,10 @@ public class DatabaseOperateInterceptor implements Interceptor {
                 // 2. 拼接操作SQL
                 String executeSql = getExecuteSql(configuration, boundSql);
                 // 3. 如果当前操作由http请求发起,取出http请求对应的id
-                HttpRequestPO httpRequestPO = httpRequestInterceptor.getThreadLocalHttpRequestPO();
+                HttpRequestPO httpRequest = httpRequestInterceptor.getThreadLocalHttpRequest();
                 // 4. 保存数据库操作日志
-                DatabaseOperatePO databaseOperatePO = build(operateType, tableName, executeSql, httpRequestPO);
-                SystemLogQueue.put(databaseOperatePO);
+                DatabaseOperatePO databaseOperate = build(operateType, tableName, executeSql, httpRequest);
+                SystemLogQueue.put(databaseOperate);
             }
         } catch (Exception e) {
             logger.error("保存数据库操作语句异常", e);
@@ -167,14 +167,14 @@ public class DatabaseOperateInterceptor implements Interceptor {
     private DatabaseOperatePO build(String operateType,
                                     String tableName,
                                     String sql,
-                                    HttpRequestPO httpRequestPO) {
-        DatabaseOperatePO databaseOperatePO = new DatabaseOperatePO();
-        databaseOperatePO.setOperateType(operateType);
-        databaseOperatePO.setTableName(tableName);
-        databaseOperatePO.setSql(sql);
-        if (httpRequestPO != null) {
-            databaseOperatePO.setRequestId(httpRequestPO.getId());
+                                    HttpRequestPO httpRequest) {
+        DatabaseOperatePO databaseOperate = new DatabaseOperatePO();
+        databaseOperate.setOperateType(operateType);
+        databaseOperate.setTableName(tableName);
+        databaseOperate.setSql(sql);
+        if (httpRequest != null) {
+            databaseOperate.setRequestId(httpRequest.getId());
         }
-        return databaseOperatePO;
+        return databaseOperate;
     }
 }

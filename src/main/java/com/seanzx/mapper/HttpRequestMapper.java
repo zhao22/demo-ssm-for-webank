@@ -7,6 +7,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Http请求记录Mapper
+ * @author zhaoxin
+ * @date 2020/10/24
+ */
 @Mapper
 public interface HttpRequestMapper extends BaseMapper<HttpRequestPO>{
 
